@@ -39,6 +39,7 @@ public class Main {
         System.out.println(taskManager.getEpics());
         System.out.println(taskManager.getSubtasks());
         System.out.println(taskManager.getSubtasksFor(3));
+        System.out.println();
 
         tNumber1 = new Task(1, "Задача №1", "Редактируем задачу №1", TaskStatus.DONE);
         taskManager.updateTask(tNumber1);
@@ -50,11 +51,11 @@ public class Main {
         taskManager.updateEpic(eNumber1);
 
         sNumber1 = new Subtask(4, "Подзадача №2 эпика №1", "Редактируем подзадачу №2",
-                TaskStatus.DONE, eNumber1.getId());
+                TaskStatus.IN_PROGRESS, eNumber1.getId());
         taskManager.updateSubtask(sNumber1);
 
         sNumber2 = new Subtask(5, "Подзадача №2 эпика №1",
-                "Редактируем подзадачу №2", TaskStatus.NEW, eNumber1.getId());
+                "Редактируем подзадачу №2", TaskStatus.IN_PROGRESS, eNumber1.getId());
         taskManager.updateSubtask(sNumber2);
 
         eNumber2 = new Epic(6, "Эпик №2", "Редактируем эпик в нем 1 подзадача");
@@ -66,8 +67,9 @@ public class Main {
 
         System.out.println(taskManager.getTasks());
         System.out.println(taskManager.getEpics());
-        System.out.println(taskManager.getSubtasks());
+       System.out.println(taskManager.getSubtasks());
         System.out.println(taskManager.getSubtasksFor(3));
+
 
         taskManager.removeTask(1);
 

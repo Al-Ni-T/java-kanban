@@ -92,17 +92,20 @@ public class TaskManager {
 
     private void updateStatus(Subtask subtask) {
         int sumByNew = 0;
+        int sumByDone = 0;
         int counter = 0;
         for (Integer subtaskId : epicById.get(subtask.getEpicId()).getSubtaskList()) {
             counter++;
             if (subtaskById.get(subtaskId).getStatus().equals(TaskStatus.NEW)) {
                 sumByNew++;
+            } else if (subtaskById.get(subtaskId).getStatus().equals(TaskStatus.DONE)) {
+                sumByDone++;
             }
         }
         if (sumByNew == counter) {
             Epic epic = epicById.get(subtask.getEpicId());
             epic.setStatus(TaskStatus.NEW);
-        } else if (sumByNew == 0) {
+        } else if (sumByNew == 0 && sumByDone == counter) {
             Epic epic = epicById.get(subtask.getEpicId());
             epic.setStatus(TaskStatus.DONE);
         } else {
@@ -112,29 +115,17 @@ public class TaskManager {
     }
 
     public ArrayList<Task> getTasks() {
-        ArrayList<Task> getTasks = new ArrayList<>();
-        for (Task task : taskById.values()) {
-            getTasks.add(task);
-        }
-        return getTasks;
+        return new ArrayList<>(taskById.values());
     }
 
     public ArrayList<Epic> getEpics() {
-
-        ArrayList<Epic> getEpics = new ArrayList<>();
-        for (Epic epic : epicById.values()) {
-            getEpics.add(epic);
-        }
-        return getEpics;
+        return new ArrayList<>(epicById.values());
     }
 
     public ArrayList<Subtask> getSubtasks() {
 
         ArrayList<Subtask> getSubtasks = new ArrayList<>();
-        for (Subtask subtask : subtaskById.values()) {
-            getSubtasks.add(subtask);
-        }
-        return getSubtasks;
+        return new ArrayList<>(subtaskById.values());
     }
 
     public ArrayList<Subtask> getSubtasksFor(int epicId) {
@@ -162,15 +153,15 @@ public class TaskManager {
         subtaskById.clear();
     }
 
-    public Object getById(int id) {
-        if (taskById.containsKey(id)) {
-            return taskById.get(id);
-        } else if (epicById.containsKey(id)) {
-            return epicById.get(id);
-        } else if (subtaskById.containsKey(id)) {
-            return subtaskById.get(id);
-        } else {
-            return null;
-        }
+    public Task getTaskById(int id) {
+        return taskById.get(id);
+    }
+
+    public Epic getEpicById(int id) {
+        return epicById.get(id);
+    }
+
+    public Subtask getSubtaskById(int id) {
+        return subtaskById.get(id);
     }
 }

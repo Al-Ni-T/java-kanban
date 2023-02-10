@@ -1,6 +1,6 @@
 package ru.yandex.tasks;
 
-public class Subtask extends Epic {
+public class Subtask extends Task {
 
     private int epicId;
 
