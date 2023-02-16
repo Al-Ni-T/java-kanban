@@ -1,6 +1,6 @@
 package ru.yandex;
 
-import ru.yandex.manager.TaskManager;
+import ru.yandex.manager.*;
 import ru.yandex.tasks.Epic;
 import ru.yandex.tasks.Subtask;
 import ru.yandex.tasks.Task;
@@ -9,7 +9,10 @@ import ru.yandex.tasks.TaskStatus;
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
+
+        TaskManager taskManager = new InMemoryTaskManager();
+        HistoryManager historyManager = new InMemoryHistoryManager();
+
 
         Task tNumber1 = new Task("Задача №1", "Создаем задачу №1", TaskStatus.NEW);
         taskManager.createTask(tNumber1);
@@ -38,7 +41,7 @@ public class Main {
         System.out.println(taskManager.getTasks());
         System.out.println(taskManager.getEpics());
         System.out.println(taskManager.getSubtasks());
-        System.out.println(taskManager.getSubtasksFor(3));
+        System.out.println(taskManager.getSubtasksForEpic(3));
         System.out.println();
 
         tNumber1 = new Task(1, "Задача №1", "Редактируем задачу №1", TaskStatus.DONE);
@@ -67,12 +70,29 @@ public class Main {
 
         System.out.println(taskManager.getTasks());
         System.out.println(taskManager.getEpics());
-       System.out.println(taskManager.getSubtasks());
-        System.out.println(taskManager.getSubtasksFor(3));
+        System.out.println(taskManager.getSubtasks());
+        System.out.println(taskManager.getSubtasksForEpic(3));
+        System.out.println();
 
+        taskManager.getTaskById(1);
+        taskManager.getTaskById(2);
+        taskManager.getEpicById(3);
+        taskManager.getEpicById(6);
+        taskManager.getSubtaskById(4);
+        taskManager.getSubtaskById(5);
+        taskManager.getSubtaskById(7);
+        taskManager.getTaskById(1);
+        taskManager.getTaskById(2);
+        taskManager.getEpicById(3);
+        taskManager.getEpicById(6);
+        taskManager.getSubtaskById(4);
+        taskManager.getSubtaskById(5);
+        taskManager.getSubtaskById(7);
 
-        taskManager.removeTask(1);
+        historyManager.getHistoryId();
 
-        taskManager.removeEpic(6);
+        for (Task task : Managers.getDefaultHistory().getHistoryId()){
+            System.out.println(task);
+        }
     }
 }
