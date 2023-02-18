@@ -91,12 +91,9 @@ public class Main {
 
         historyManager.getHistoryId();
 
-        for (Task task : Managers.getDefaultHistory().getHistoryId()){
-            System.out.println(task);
-        }
         System.out.println();
 
-        for(Task task : Managers.getDefaultTask().getHistoryId()){
+        for (Task task : Managers.getDefaultTask().getHistoryId()) {
             System.out.println(task);
         }
     }

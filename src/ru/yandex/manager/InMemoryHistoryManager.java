@@ -8,13 +8,15 @@ import java.util.List;
 public class InMemoryHistoryManager implements HistoryManager {
     private static final List<Task> historyId = new ArrayList<>(10);
 
+    @Override
     public void addHistoryId(Task task) {
         if (historyId.size() == 10) {
-            historyId.remove(9);
+            historyId.remove(0);
         }
-        historyId.add(0, task);
+        historyId.add(task);
     }
 
+    @Override
     public List<Task> getHistoryId() {
         return new ArrayList<>(historyId);
     }
