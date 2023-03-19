@@ -1,12 +1,14 @@
 package ru.yandex.manager;
 
-import ru.yandex.tasks.Task;
-
 import java.util.List;
 
 public interface HistoryManager {
 
-    void addHistoryId(Task task);
+    void addHistoryId(int taskId);
 
-    List<Task> getHistoryId();
+    List<Integer> getHistoryId();
+
+    void removeNodeInCustomList(int taskId);
+
+
 }

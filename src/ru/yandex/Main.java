@@ -10,8 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        TaskManager taskManager = new InMemoryTaskManager();
-        HistoryManager historyManager = new InMemoryHistoryManager();
+        TaskManager taskManager = Managers.getDefaultTask();
 
 
         Task tNumber1 = new Task("Задача №1", "Создаем задачу №1", TaskStatus.NEW);
@@ -38,63 +37,33 @@ public class Main {
                 "Создаем подзадачу №1", TaskStatus.NEW, eNumber2.getId());
         taskManager.createSubtask(sNumber3);
 
-        System.out.println(taskManager.getTasks());
-        System.out.println(taskManager.getEpics());
-        System.out.println(taskManager.getSubtasks());
-        System.out.println(taskManager.getSubtasksForEpic(3));
-        System.out.println();
-
-        tNumber1 = new Task(1, "Задача №1", "Редактируем задачу №1", TaskStatus.DONE);
-        taskManager.updateTask(tNumber1);
-
-        tNumber2 = new Task(2, "Задача №2", "Редактируем задачу №2", TaskStatus.DONE);
-        taskManager.updateTask(tNumber2);
-
-        eNumber1 = new Epic(3, "Эпик №1", "Редактируем эпик в нем 2 подзадачи");
-        taskManager.updateEpic(eNumber1);
-
-        sNumber1 = new Subtask(4, "Подзадача №2 эпика №1", "Редактируем подзадачу №2",
-                TaskStatus.IN_PROGRESS, eNumber1.getId());
-        taskManager.updateSubtask(sNumber1);
-
-        sNumber2 = new Subtask(5, "Подзадача №2 эпика №1",
-                "Редактируем подзадачу №2", TaskStatus.IN_PROGRESS, eNumber1.getId());
-        taskManager.updateSubtask(sNumber2);
-
-        eNumber2 = new Epic(6, "Эпик №2", "Редактируем эпик в нем 1 подзадача");
-        taskManager.updateEpic(eNumber2);
-
-        sNumber3 = new Subtask(7, "Подзадача №1 эпика №2",
-                "Создаем подзадачу №1", TaskStatus.DONE, eNumber2.getId());
-        taskManager.updateSubtask(sNumber3);
-
-        System.out.println(taskManager.getTasks());
-        System.out.println(taskManager.getEpics());
-        System.out.println(taskManager.getSubtasks());
-        System.out.println(taskManager.getSubtasksForEpic(3));
-        System.out.println();
-
         taskManager.getTaskById(1);
         taskManager.getTaskById(2);
+        taskManager.getTaskById(1);
         taskManager.getEpicById(3);
         taskManager.getEpicById(6);
+        taskManager.getTaskById(2);
         taskManager.getSubtaskById(4);
         taskManager.getSubtaskById(5);
+        taskManager.getEpicById(6);
         taskManager.getSubtaskById(7);
+        taskManager.getSubtaskById(7);
+        taskManager.getTaskById(2);
+        taskManager.getTaskById(1);
         taskManager.getTaskById(1);
         taskManager.getTaskById(2);
-        taskManager.getEpicById(3);
-        taskManager.getEpicById(6);
-        taskManager.getSubtaskById(4);
-        taskManager.getSubtaskById(5);
-        taskManager.getSubtaskById(7);
 
-        historyManager.getHistoryId();
+        for (int taskId : Managers.getDefaultTask().getHistoryId()) {
+            System.out.println(taskId);
+        }
+
+        taskManager.removeEpic(6);
+        taskManager.removeSubtask(5);
+        taskManager.removeTask(1);
 
         System.out.println();
-
-        for (Task task : Managers.getDefaultTask().getHistoryId()) {
-            System.out.println(task);
+        for (int taskId : Managers.getDefaultTask().getHistoryId()) {
+            System.out.println(taskId);
         }
     }
 }

@@ -43,5 +43,5 @@ public interface TaskManager {
 
     Subtask getSubtaskById(int id);
 
-    List<Task> getHistoryId();
+    List<Integer> getHistoryId();
 }
