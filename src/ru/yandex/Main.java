@@ -52,6 +52,8 @@ public class Main {
         taskManager.getTaskById(1);
         taskManager.getTaskById(1);
         taskManager.getTaskById(2);
+        taskManager.getTaskById(2);
+        taskManager.getTaskById(1);
 
         for (int taskId : Managers.getDefaultTask().getHistoryId()) {
             System.out.println(taskId);

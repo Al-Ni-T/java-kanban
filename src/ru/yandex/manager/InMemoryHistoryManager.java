@@ -19,23 +19,19 @@ public class InMemoryHistoryManager implements HistoryManager {
 
         if (historyMap.containsKey(taskId)) {
             removeNodeInCustomList(taskId);
-            historyMap.put(taskId, historyNode);
-        } else {
-            historyMap.put(taskId, historyNode);
         }
+        historyMap.put(taskId, historyNode);
     }
 
     @Override
     public void removeNodeInCustomList(int taskId) {
         Node<Integer> nodeToRemove = historyMap.get(taskId);
-
         customLinkedList.removeNode(nodeToRemove);
-        historyMap.remove(taskId);
     }
 
     @Override
     public List<Integer> getHistoryId() {
-        return customLinkedList.getAll();
+        return customLinkedList.getTasks();
     }
 
     public class CustomLinkedList<T> {
@@ -70,23 +66,26 @@ public class InMemoryHistoryManager implements HistoryManager {
 
         public void removeNode(Node<T> nodeToRemove) {
 
-            if (nodeToRemove == tail) {
-                nodeToRemove.next.prev = null;
-                nodeToRemove.next = null;
-            } else if (nodeToRemove == head) {
-                head.next.prev = null;
+            if (nodeToRemove != null) {
 
-                head = head.next;
+                if (nodeToRemove == tail) {
+                    nodeToRemove.prev.next = null;
 
-            } else {
-                nodeToRemove.prev.next = nodeToRemove.next;
-                nodeToRemove.next.prev = nodeToRemove.prev;
-                nodeToRemove.next = null;
-                nodeToRemove.prev = null;
+                } else if (nodeToRemove == head) {
+                    head.next.prev = null;
+
+                    head = head.next;
+
+                } else {
+                    nodeToRemove.prev.next = nodeToRemove.next;
+                    nodeToRemove.next.prev = nodeToRemove.prev;
+                    nodeToRemove.next = null;
+                    nodeToRemove.prev = null;
+                }
             }
         }
 
-        public List<T> getAll() {
+        public List<T> getTasks() {
             List<T> toReturn = new LinkedList<>();
             if (this.isEmpty()) {
                 return toReturn;
@@ -97,11 +96,10 @@ public class InMemoryHistoryManager implements HistoryManager {
                 toReturn.add(current.element);
                 current = current.next;
             }
-
             return toReturn;
         }
 
-        public boolean isEmpty() {
+        private boolean isEmpty() {
             return size == 0;
         }
     }
@@ -122,5 +120,4 @@ public class InMemoryHistoryManager implements HistoryManager {
             this.element = data;
         }
     }
-
 }
